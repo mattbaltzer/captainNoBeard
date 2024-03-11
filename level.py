@@ -27,7 +27,14 @@ class Level:
                     player_sprite = Player((x,y))
                     self.player.add(player_sprite)
         
+    def scroll_x(self):
+        player = self.player.sprite
+        player_x = player.rect.centerx
+        direction_x = player.direction.x
 
+        if player_x < 200:
+            self.world_shift = 8
+            player.speed = 0
 
     def run(self):
         # Drawing the level tiles
@@ -37,3 +44,4 @@ class Level:
         # Drawing the player tiles
         self.player.update()
         self.player.draw(self.display_surface)
+        self.scroll_x()
