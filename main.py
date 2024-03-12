@@ -8,7 +8,6 @@ screen = pygame.display.set_mode((screen_width,screen_height))
 clock = pygame.time.Clock()
 level = Level(level_map,screen)
 
-
 # Loop for checking if you quit the game
 while True:
     for event in pygame.event.get():
