@@ -10,11 +10,14 @@ class Player(pygame.sprite.Sprite):
         self.image = self.animations['idle'][self.frame_index]
         self.rect = self.image.get_rect(topleft = pos)
 
-        # Player movement
+        # Sets the Player movement
         self.direction = pygame.math.Vector2(0,0)
         self.speed = 6
         self.gravity = 0.8
         self.jump_speed = -16
+
+        # Sets up the Player status
+        self.status = 'idle'
 
     def import_character_assets(self):
         character_path = './graphics/character/'
@@ -25,7 +28,7 @@ class Player(pygame.sprite.Sprite):
             self.animations[animation] = import_folder(full_path)
 
     def animate(self):
-        animation = self.animations['run']
+        animation = self.animations[self.status]
 
         # Loop over the frame index
         self.frame_index += self.animation_speed
@@ -48,6 +51,17 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_SPACE]:
             self.jump()
     
+    def get_status(self):
+        if self.direction.y < 0:
+            self.status = 'jump'
+        elif self.direction.y > 0:
+            self.status = 'fall'
+        else:
+            if self.direction.x != 0:
+                self.status = 'run'
+            else:
+                self.status = 'idle'
+
     def apply_gravity(self):
         self.direction.y += self.gravity
         self.rect.y += self.direction.y
@@ -57,5 +71,6 @@ class Player(pygame.sprite.Sprite):
 
     def update(self):
         self.get_input()
+        self.get_status()
         self.animate()
         
