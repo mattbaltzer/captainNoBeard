@@ -42,7 +42,7 @@ class Player(pygame.sprite.Sprite):
 
         image = animation[int(self.frame_index)]
         if self.facing_right:
-            self.image = animation[int(self.frame_index)]
+            self.image = image
         else:
             # Checks if the image flipped on the X or Y axis 
             flipped_image = pygame.transform.flip(image,True,False)
