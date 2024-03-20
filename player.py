@@ -56,7 +56,6 @@ class Player(pygame.sprite.Sprite):
         else:
             self.rect = self.image.get_rect(center = self.rect.center)
 
-
     def get_input(self):
         keys = pygame.key.get_pressed()
 
