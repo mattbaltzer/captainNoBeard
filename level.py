@@ -18,9 +18,9 @@ class Level:
 
     def create_jump_particles(self,pos):
         if self.player.sprite.facing_right:
-            pos -= pygame.math.Vector2(4,5)
+            pos -= pygame.math.Vector2(4,18)
         else:
-            pos += pygame.math.Vector2(4,-5)
+            pos += pygame.math.Vector2(4,-18)
         jump_particle_sprite = ParticleEffect(pos,'jump')
         self.dust_sprite.add(jump_particle_sprite)
 
@@ -33,9 +33,9 @@ class Level:
     def create_landing_particles(self):
         if not self.player_on_ground and self.player.sprite.on_ground and not self.dust_sprite.sprites():
             if self.player.sprite.facing_right:
-                offset = pygame.math.Vector2(4,10)
+                offset = pygame.math.Vector2(4,20)
             else:
-                offset = pygame.math.Vector2(4,-10)
+                offset = pygame.math.Vector2(4,20)
             fall_dust_particle = ParticleEffect(self.player.sprite.rect.midbottom - offset,'land')
             self.dust_sprite.add(fall_dust_particle)
 

@@ -81,10 +81,10 @@ class Player(pygame.sprite.Sprite):
             dust_particle = self.dust_run_particles[int(self.dust_frame_index)]
 
             if self.facing_right:
-                pos = self.rect.bottomleft - pygame.math.Vector2(2,20)
+                pos = self.rect.bottomleft - pygame.math.Vector2(6,10)
                 self.display_surface.blit(dust_particle,pos)
             else: 
-                pos = self.rect.bottomright - pygame.math.Vector2(50,20)
+                pos = self.rect.bottomright - pygame.math.Vector2(6,10)
                 flipped_dust_particle = pygame.transform.flip(dust_particle,True,False)
                 self.display_surface.blit(flipped_dust_particle,pos)
 
