@@ -1,13 +1,14 @@
 import pygame
+import random
 from support import import_csv_layout, import_cut_graphics
 from settings import tile_size
-from tiles import Tile, StaticTile, Crate, Coin
+from tiles import Tile, StaticTile, Crate, Coin, Palm
 
 class Level:
     def __init__(self,level_data,surface):
         # Generates the surface and controls the level scroll
         self.display_surface = surface
-        self.world_shift = -3
+        self.world_shift = 0
 
         # Creates the terrain by seleting values from the terrain csv
         terrain_layout = import_csv_layout(level_data['terrain'])
@@ -23,7 +24,11 @@ class Level:
 
         # Creates the animated coins setup
         coin_layout = import_csv_layout(level_data['coins'])
-        self.coin_sprites = self.create_tile_group(coin_layout,'coins')
+        self.coin_sprites = self.create_tile_group(coin_layout,'coins') 
+
+        # Creates the animated foreground palm trees
+        fg_palm_layout = import_csv_layout(level_data['fg palms'])
+        self.fg_palm_sprites = self.create_tile_group(fg_palm_layout,'fg palms')
     
     def create_tile_group(self,layout,type):
         sprite_group = pygame.sprite.Group()
@@ -53,7 +58,8 @@ class Level:
                         elif val == '1':
                             sprite = Coin(tile_size,x,y,'./graphics/coins/silver')
                     
-                    
+                    if type == 'fg palms':
+                        sprite = Palm(tile_size,x,y,'./graphics/terrain/palm_small',random.randint(30,38))
 
                     sprite_group.add(sprite)
 
@@ -75,3 +81,7 @@ class Level:
         #coins
         self.coin_sprites.update(self.world_shift)
         self.coin_sprites.draw(self.display_surface)
+
+        # foreground palms
+        self.fg_palm_sprites.update(self.world_shift)
+        self.fg_palm_sprites.draw(self.display_surface)
